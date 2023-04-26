@@ -1,0 +1,51 @@
+# ------------------------------------------------------------------------------------------------------------------------
+# GHA Workflow to deploy Azure Resources and Website App
+# ------------------------------------------------------------------------------------------------------------------------
+# You need to set up secrets in the GitHub Secrets Repository before running these workflows.
+#   See readme.md for details
+# ------------------------------------------------------------------------------------------------------------------------
+name: deploy.infra.and.website
+on: 
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'     
+        required: true
+        default: 'warning' 
+        type: choice
+        options:
+          - info
+          - warning
+          - debug 
+
+jobs:
+# ------------------------------------------------------------------------------------------------------------------------
+  # scan-code:
+  #   name: Scan Source Code
+  #   uses: ./.github/workflows/template-scan-code.yml
+
+# ------------------------------------------------------------------------------------------------------------------------
+  infra-dev:
+    name: Create Infra
+    uses: ./.github/workflows/template-infra.yml
+    secrets: inherit
+    with:
+      envCode: 'dev'
+
+# ------------------------------------------------------------------------------------------------------------------------
+  deploy-dev:
+    name: Deploy Website
+    needs: infra-dev
+    uses: ./.github/workflows/template-deploy-python-website.yml
+    secrets: inherit
+    with:
+      envCode: 'dev'
+      deployDirectory: './app/backend' 
+      
+  update-search-dev:
+    name: Update Search Index
+    needs: deploy-dev
+    uses: ./.github/workflows/template-update-search.yml
+    secrets: inherit
+    with:
+      envCode: 'dev'

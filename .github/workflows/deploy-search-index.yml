@@ -1,0 +1,29 @@
+# ------------------------------------------------------------------------------------------------------------------------
+# GHA Workflow to update search index Only
+# ------------------------------------------------------------------------------------------------------------------------
+# You need to set up secrets in the GitHub Secrets Repository before running these workflows.
+#   See readme.md for details
+# ------------------------------------------------------------------------------------------------------------------------
+name: deploy.search.index
+on:
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'     
+        required: true
+        default: 'warning' 
+        type: choice
+        options:
+          - info
+          - warning
+          - debug 
+
+jobs:
+# ------------------------------------------------------------------------------------------------------------------------
+  update-search-dev:
+    name: Update Search Index
+    uses: ./.github/workflows/template-update-search.yml
+    secrets: inherit
+    with:
+      envCode: 'dev'
+    
