@@ -81,7 +81,8 @@ gh variable set BACKEND_SERVICE_NAME -b 'xxx-openai-search-demo'
 # note: you will have to update template-infra.yml to pass these variables in to main.bicep
 gh variable set openAiServiceName -b 'youropenaiservice'
 gh variable set openAiResourceGroupName -b 'rg_services'
-(optional - if you have existing model deploys with different names) 
+
+# optional - if you have existing model deploys with different names
 gh variable set AZURE_OPENAI_CHATGPT_DEPLOYMENT="gpt35"
 gh variable set AZURE_OPENAI_GPT_DEPLOYMENT="text-davinici-003"
 

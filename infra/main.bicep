@@ -48,6 +48,10 @@ param principalId string = ''
 param appSuffix string = ''
 param runDateTime string = utcNow()
 
+// if you get the error, "The role assignment already exists.", then pass in false
+// These admin roles are assigned at a subscription level and can only be assigned to the admin once.
+param assignAdminPermissions string = 'true'
+
 var abbrs = loadJsonContent('abbreviations.json')
 // if appSuffix is supplied, use that instead of the resource token
 var resourceToken = !empty(appSuffix) ? appSuffix : toLower(uniqueString(subscription().id, environmentName, location))
@@ -58,6 +62,9 @@ var serviceTags = empty(appSuffix) ? { 'azd-service-name': 'backend' } : { 'serv
 var frontEndTags = union(tags, serviceTags)
 
 var deploymentSuffix = '-${runDateTime}'
+
+// convert string parameter to true/false boolean
+var assignAdminPermissionRoles = startsWith(toUpper(assignAdminPermissions), 'T') ? true : false
 
 // Organize resources in a resource group
 resource resourceGroup 'Microsoft.Resources/resourceGroups@2021-04-01' = {
@@ -217,7 +224,7 @@ module storage 'core/storage/storage-account.bicep' = {
   }
 }
 
-module createUserPrincipalRoles 'core/security/createUserRoles.bicep' = {
+module createUserPrincipalRoles 'core/security/createUserRoles.bicep' = if (assignAdminPermissionRoles) {
   name: 'principal-user-roles${deploymentSuffix}'
   dependsOn: [ storage, openAi, formRecognizer, searchService ]
   params: {
@@ -229,7 +236,7 @@ module createUserPrincipalRoles 'core/security/createUserRoles.bicep' = {
 
 module createSystemIdentityRoles 'core/security/createSystemRoles.bicep' = {
   name: 'system-identity-roles${deploymentSuffix}'
-  dependsOn: [ createUserPrincipalRoles ]
+  dependsOn: [ storage, openAi, formRecognizer, searchService ]
   params: {
     principalId: backend.outputs.identityPrincipalId
     resourceToken: resourceToken
