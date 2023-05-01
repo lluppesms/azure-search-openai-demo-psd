@@ -66,6 +66,8 @@ gh variable set AZURE_SUBSCRIPTION_ID -b yourSubscriptionId
 gh variable set TENANT_ID -b servicePrincipalId-AD-TenantId
 gh variable set USER_PRINCIPAL_ID -b youruserguid
 
+gh variable set DEPLOY_QA -b false
+gh variable set ASSIGN_ADMIN_PERMISSIONS -b false
 
 gh variable set RESOURCE_GROUP_Name --env dev -b rg_<yourPreferredName>_dev
 gh variable set RESOURCE_GROUP_Name --env qa -b rg_<yourPreferredName>_qa

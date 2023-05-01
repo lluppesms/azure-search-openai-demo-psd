@@ -26,14 +26,14 @@ jobs:
 
 # ------------------------------------------------------------------------------------------------------------------------
   infra-dev:
-    name: Create Infra
+    name: DEV Infra
     uses: ./.github/workflows/template-infra.yml
     secrets: inherit
     with:
       envCode: 'dev'
 
   deploy-dev:
-    name: Deploy Website
+    name: DEV Deploy
     needs: infra-dev
     uses: ./.github/workflows/template-deploy-python-website.yml
     secrets: inherit
@@ -42,7 +42,7 @@ jobs:
       deployDirectory: './app/backend' 
       
   update-search-dev:
-    name: Update Search Index
+    name: DEV Index
     needs: deploy-dev
     uses: ./.github/workflows/template-update-search.yml
     secrets: inherit
@@ -51,7 +51,7 @@ jobs:
 
   # ------------------------------------------------------------------------------------------------------------------------
   infra-qa:
-    name: Create QA Infra
+    name: QA Infra
     uses: ./.github/workflows/template-infra.yml
     if: vars.DEPLOY_QA == 'true'
     secrets: inherit
@@ -59,7 +59,7 @@ jobs:
       envCode: 'qa'
 
   deploy-qa:
-    name: Deploy QA Website
+    name: QA Deploy
     needs: infra-qa
     if: vars.DEPLOY_QA == 'true'
     uses: ./.github/workflows/template-deploy-python-website.yml
@@ -69,7 +69,7 @@ jobs:
       deployDirectory: './app/backend' 
       
   update-search-qa:
-    name: Update QA Search Index
+    name: QA Index
     needs: deploy-qa
     if: vars.DEPLOY_QA == 'true'
     uses: ./.github/workflows/template-update-search.yml

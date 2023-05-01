@@ -30,6 +30,7 @@ jobs:
         echo "appSuffix=${{ vars.APP_SUFFIX }}"
         echo "BACKEND_SERVICE_NAME=${{ vars.BACKEND_SERVICE_NAME }}"
         echo "principalId=${{ vars.USER_PRINCIPAL_ID }}"
+        echo "assignAdminPermissions=${{ vars.ASSIGN_ADMIN_PERMISSIONS }}"
         echo "Pipeline Workspace Directory Contents:"
         tree ${{ env.GITHUB_ACTION_PATH }}
       continue-on-error: true
@@ -68,6 +69,7 @@ jobs:
           appSuffix=${{ vars.APP_SUFFIX }}
           backendServiceName=${{ vars.BACKEND_SERVICE_NAME }}
           principalId=${{ vars.USER_PRINCIPAL_ID }}
+          assignAdminPermissions=${{ vars.ASSIGN_ADMIN_PERMISSIONS }}
 
     # openAiServiceName=${{ vars.AZURE_OPENAI_SERVICE }}
     # openAiResourceGroupName=${{ vars.AZURE_OPENAI_RESOURCE_GROUP }}
