@@ -44,9 +44,9 @@ The process also needs to do an azd auth login - use the same info provided abov
 ``` bash
 gh auth login
 
-gh secret set AZURE_CLIENT_ID -b 'clientid-from-azure-credentials'
-gh secret set AZURE_CLIENT_SECRET -b 'clientsecret-from-azure-credentials'
-gh secret set AZURE_TENANT_ID -b 'tenantid-from-azure-credentials'
+gh secret set AZURE_CLIENT_ID -b clientid-from-azure-credentials
+gh secret set AZURE_CLIENT_SECRET -b clientsecret-from-azure-credentials
+gh secret set AZURE_TENANT_ID -b tenantid-from-azure-credentials
 ```
 
 ---
@@ -61,44 +61,44 @@ Required Values:
 ``` bash
 gh auth login
 
-gh variable set AZURE_LOCATION -b 'eastus2'
-gh variable set AZURE_SUBSCRIPTION_ID -b 'yourSubscriptionId'
-gh variable set TENANT_ID -b 'servicePrincipalId-AD-TenantId'
-gh variable set USER_PRINCIPAL_ID -b 'youruserguid'
+gh variable set AZURE_LOCATION -b eastus2
+gh variable set AZURE_SUBSCRIPTION_ID -b yourSubscriptionId
+gh variable set TENANT_ID -b servicePrincipalId-AD-TenantId
+gh variable set USER_PRINCIPAL_ID -b youruserguid
 
 
-gh variable set RESOURCE_GROUP_Name --env dev -b 'rg_<yourPreferredName>_dev'
-gh variable set RESOURCE_GROUP_Name --env qa -b 'rg_<yourPreferredName>_qa'
+gh variable set RESOURCE_GROUP_Name --env dev -b rg_<yourPreferredName>_dev
+gh variable set RESOURCE_GROUP_Name --env qa -b rg_<yourPreferredName>_qa
 
 # if you use the random token, the deploy step needs it to be able to deploy to the proper resource
-gh variable set RESOURCE_TOKEN --env dev -b '<hashedkey>'
-gh variable set RESOURCE_TOKEN --env qa -b '<hashedkeyqa>'
+gh variable set RESOURCE_TOKEN --env dev -b <hashedkey>
+gh variable set RESOURCE_TOKEN --env qa -b <hashedkeyqa>
 
 # if you want to use a specific suffix for your resources instead of a random token, specify this value
-gh variable set APP_SUFFIX --env dev -b 'xxxoaidemo'
-gh variable set APP_SUFFIX --env qa -b 'xxxoaiqa'
+gh variable set APP_SUFFIX --env dev -b xxxoaidemo
+gh variable set APP_SUFFIX --env qa -b xxxoaiqa
 
 # if you want to use a specific name for the web application
-gh variable set BACKEND_SERVICE_NAME --env dev -b 'xxx-openai-search-dev'
-gh variable set BACKEND_SERVICE_NAME --env qa -b 'xxx-openai-search-qa'
+gh variable set BACKEND_SERVICE_NAME --env dev -b xxx-openai-search-dev
+gh variable set BACKEND_SERVICE_NAME --env qa -b xxx-openai-search-qa
 
 # optional - if you have existing OpenAI resource specify it here
 # note: you will have to update template-infra.yml to pass these variables in to main.bicep
-gh variable set openAiServiceName -b 'youropenaiservice'
-gh variable set openAiResourceGroupName -b 'rg_services'
+gh variable set openAiServiceName -b youropenaiservice
+gh variable set openAiResourceGroupName -b rg_services
 
 # optional - if you have existing model deploys with different names
-gh variable set AZURE_OPENAI_CHATGPT_DEPLOYMENT="gpt35"
-gh variable set AZURE_OPENAI_GPT_DEPLOYMENT="text-davinici-003"
+gh variable set AZURE_OPENAI_CHATGPT_DEPLOYMENT -b gpt35
+gh variable set AZURE_OPENAI_GPT_DEPLOYMENT -b text-davinici-003
 
 # optional - if you want specific names for other services, specify them here
 # note: you will have to update template-infra.yml to pass these variables in to main.bicep
-gh variable set openAiSkuName -b 'S0'
-gh variable set formRecognizerServiceName='xxx'
-gh variable set formRecognizerSkuName='S0'
-gh variable set searchServiceName='xxx'
-gh variable set searchServiceSkuName='standard'
-gh variable set storageAccountName='xxx'
+gh variable set openAiSkuName -b S0
+gh variable set formRecognizerServiceName -b xxx
+gh variable set formRecognizerSkuName -b S0
+gh variable set searchServiceName -b xxx
+gh variable set searchServiceSkuName -b standard
+gh variable set storageAccountName -b xxx
 
 ```
 
