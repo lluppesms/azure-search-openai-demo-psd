@@ -63,19 +63,24 @@ gh auth login
 
 gh variable set AZURE_LOCATION -b 'eastus2'
 gh variable set AZURE_SUBSCRIPTION_ID -b 'yourSubscriptionId'
-gh variable set RESOURCE_GROUP_Name -b 'rg_<yourPreferredName>'
-
 gh variable set TENANT_ID -b 'servicePrincipalId-AD-TenantId'
 gh variable set USER_PRINCIPAL_ID -b 'youruserguid'
 
+
+gh variable set RESOURCE_GROUP_Name --env dev -b 'rg_<yourPreferredName>_dev'
+gh variable set RESOURCE_GROUP_Name --env qa -b 'rg_<yourPreferredName>_qa'
+
 # if you use the random token, the deploy step needs it to be able to deploy to the proper resource
-gh variable set RESOURCE_TOKEN -b '<hashedkey>'
+gh variable set RESOURCE_TOKEN --env dev -b '<hashedkey>'
+gh variable set RESOURCE_TOKEN --env qa -b '<hashedkeyqa>'
 
 # if you want to use a specific suffix for your resources instead of a random token, specify this value
-gh variable set APP_SUFFIX -b 'xxxoaidemo'  
+gh variable set APP_SUFFIX --env dev -b 'xxxoaidemo'
+gh variable set APP_SUFFIX --env qa -b 'xxxoaiqa'
 
 # if you want to use a specific name for the web application
-gh variable set BACKEND_SERVICE_NAME -b 'xxx-openai-search-demo'
+gh variable set BACKEND_SERVICE_NAME --env dev -b 'xxx-openai-search-dev'
+gh variable set BACKEND_SERVICE_NAME --env qa -b 'xxx-openai-search-qa'
 
 # optional - if you have existing OpenAI resource specify it here
 # note: you will have to update template-infra.yml to pass these variables in to main.bicep

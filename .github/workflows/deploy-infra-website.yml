@@ -32,7 +32,6 @@ jobs:
     with:
       envCode: 'dev'
 
-# ------------------------------------------------------------------------------------------------------------------------
   deploy-dev:
     name: Deploy Website
     needs: infra-dev
@@ -49,3 +48,32 @@ jobs:
     secrets: inherit
     with:
       envCode: 'dev'
+
+  # ------------------------------------------------------------------------------------------------------------------------
+  infra-qa:
+    name: Create QA Infra
+    uses: ./.github/workflows/template-infra.yml
+    if: vars.DEPLOY_QA == 'true'
+    secrets: inherit
+    with:
+      envCode: 'qa'
+
+  deploy-qa:
+    name: Deploy QA Website
+    needs: infra-qa
+    if: vars.DEPLOY_QA == 'true'
+    uses: ./.github/workflows/template-deploy-python-website.yml
+    secrets: inherit
+    with:
+      envCode: 'qa'
+      deployDirectory: './app/backend' 
+      
+  update-search-qa:
+    name: Update QA Search Index
+    needs: deploy-qa
+    if: vars.DEPLOY_QA == 'true'
+    uses: ./.github/workflows/template-update-search.yml
+    secrets: inherit
+    with:
+      envCode: 'qa'
+
