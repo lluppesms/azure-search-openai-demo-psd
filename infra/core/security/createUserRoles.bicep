@@ -10,29 +10,29 @@ param principalId string
 ])
 param principalType string = 'User'
 // param resourceToken string
-param resourceGroupName string
-param openAiResourceGroupName string = ''
-param formRecognizerResourceGroupName string = ''
-param searchServiceResourceGroupName string = ''
-param storageResourceGroupName string = ''
+// param resourceGroupName string
+// param openAiResourceGroupName string = ''
+// param formRecognizerResourceGroupName string = ''
+// param searchServiceResourceGroupName string = ''
+// param storageResourceGroupName string = ''
 
 var roleDefinitions = loadJsonContent('roleDefinitions.json')
 
-resource openAiResourceGroup 'Microsoft.Resources/resourceGroups@2021-04-01' existing = if (!empty(openAiResourceGroupName)) {
-  name: !empty(openAiResourceGroupName) ? openAiResourceGroupName : resourceGroupName
-}
+// resource openAiResourceGroup 'Microsoft.Resources/resourceGroups@2021-04-01' existing = if (!empty(openAiResourceGroupName)) {
+//   name: !empty(openAiResourceGroupName) ? openAiResourceGroupName : resourceGroupName
+// }
 
-resource formRecognizerResourceGroup 'Microsoft.Resources/resourceGroups@2021-04-01' existing = if (!empty(formRecognizerResourceGroupName)) {
-  name: !empty(formRecognizerResourceGroupName) ? formRecognizerResourceGroupName : resourceGroupName
-}
+// resource formRecognizerResourceGroup 'Microsoft.Resources/resourceGroups@2021-04-01' existing = if (!empty(formRecognizerResourceGroupName)) {
+//   name: !empty(formRecognizerResourceGroupName) ? formRecognizerResourceGroupName : resourceGroupName
+// }
 
-resource searchServiceResourceGroup 'Microsoft.Resources/resourceGroups@2021-04-01' existing = if (!empty(searchServiceResourceGroupName)) {
-  name: !empty(searchServiceResourceGroupName) ? searchServiceResourceGroupName : resourceGroupName
-}
+// resource searchServiceResourceGroup 'Microsoft.Resources/resourceGroups@2021-04-01' existing = if (!empty(searchServiceResourceGroupName)) {
+//   name: !empty(searchServiceResourceGroupName) ? searchServiceResourceGroupName : resourceGroupName
+// }
 
-resource storageResourceGroup 'Microsoft.Resources/resourceGroups@2021-04-01' existing = if (!empty(storageResourceGroupName)) {
-  name: !empty(storageResourceGroupName) ? storageResourceGroupName : resourceGroupName
-}
+// resource storageResourceGroup 'Microsoft.Resources/resourceGroups@2021-04-01' existing = if (!empty(storageResourceGroupName)) {
+//   name: !empty(storageResourceGroupName) ? storageResourceGroupName : resourceGroupName
+// }
 
 resource openAIRoleExists 'Microsoft.Authorization/roleAssignments@2022-04-01' existing = {
   name: guid(subscription().id, principalId, roleDefinitions.OpenAIUser)

@@ -230,7 +230,7 @@ module createUserPrincipalRoles 'core/security/createUserRoles.bicep' = if (assi
   params: {
     principalId: principalId
     // resourceToken: resourceToken
-    resourceGroupName: resourceGroup.name
+    // resourceGroupName: resourceGroup.name
   }
 }
 
