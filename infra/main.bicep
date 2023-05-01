@@ -229,7 +229,7 @@ module createUserPrincipalRoles 'core/security/createUserRoles.bicep' = if (assi
   dependsOn: [ storage, openAi, formRecognizer, searchService ]
   params: {
     principalId: principalId
-    resourceToken: resourceToken
+    // resourceToken: resourceToken
     resourceGroupName: resourceGroup.name
   }
 }

@@ -9,7 +9,7 @@ param principalId string
   'User'
 ])
 param principalType string = 'User'
-param resourceToken string
+// param resourceToken string
 param resourceGroupName string
 param openAiResourceGroupName string = ''
 param formRecognizerResourceGroupName string = ''
@@ -34,48 +34,70 @@ resource storageResourceGroup 'Microsoft.Resources/resourceGroups@2021-04-01' ex
   name: !empty(storageResourceGroupName) ? storageResourceGroupName : resourceGroupName
 }
 
-resource openAIRole 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
-  name: guid(resourceToken, subscription().id, openAiResourceGroup.id, principalId, roleDefinitions.OpenAIUser)
+resource openAIRoleExists 'Microsoft.Authorization/roleAssignments@2022-04-01' existing = {
+  name: guid(subscription().id, principalId, roleDefinitions.OpenAIUser)
+}
+resource openAIRole 'Microsoft.Authorization/roleAssignments@2022-04-01' = if (empty(openAIRoleExists.name)) {
+  name: guid(subscription().id, principalId, roleDefinitions.OpenAIUser)
   properties: {
     principalId: principalId
     principalType: principalType
     roleDefinitionId: resourceId('Microsoft.Authorization/roleDefinitions', roleDefinitions.OpenAIUser)
   }
 }
-resource formRecognizerRole 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
-  name: guid(resourceToken, subscription().id, formRecognizerResourceGroup.id, principalId, roleDefinitions.FormsRecognizerUser)
+
+resource formRecognizerRoleExists 'Microsoft.Authorization/roleAssignments@2022-04-01' existing = {
+  name: guid(subscription().id, principalId, roleDefinitions.FormsRecognizerUser)
+}
+resource formRecognizerRole 'Microsoft.Authorization/roleAssignments@2022-04-01' = if (empty(formRecognizerRoleExists.name)) {
+  name: guid(subscription().id, principalId, roleDefinitions.FormsRecognizerUser)
   properties: {
     principalId: principalId
     principalType: principalType
     roleDefinitionId: resourceId('Microsoft.Authorization/roleDefinitions', roleDefinitions.FormsRecognizerUser)
   }
 }
-resource storageUserRole 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
-  name: guid(resourceToken, subscription().id, storageResourceGroup.id, principalId, roleDefinitions.StorageUser)
+
+resource storageUserRoleExists 'Microsoft.Authorization/roleAssignments@2022-04-01' existing = {
+  name: guid(subscription().id, principalId, roleDefinitions.StorageUser)
+}
+resource storageUserRole 'Microsoft.Authorization/roleAssignments@2022-04-01' = if (empty(storageUserRoleExists.name)) {
+  name: guid(subscription().id, principalId, roleDefinitions.StorageUser)
   properties: {
     principalId: principalId
     principalType: principalType
     roleDefinitionId: resourceId('Microsoft.Authorization/roleDefinitions', roleDefinitions.StorageUser)
   }
 }
-resource storageContributorRole 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
-  name: guid(resourceToken, subscription().id, storageResourceGroup.id, principalId, roleDefinitions.StorageContributor)
+resource storageContributorRoleExists 'Microsoft.Authorization/roleAssignments@2022-04-01' existing = {
+  name: guid(subscription().id, principalId, roleDefinitions.StorageContributor)
+}
+resource storageContributorRole 'Microsoft.Authorization/roleAssignments@2022-04-01' = if (empty(storageContributorRoleExists.name)) {
+  name: guid(subscription().id, principalId, roleDefinitions.StorageContributor)
   properties: {
     principalId: principalId
     principalType: principalType
     roleDefinitionId: resourceId('Microsoft.Authorization/roleDefinitions', roleDefinitions.StorageContributor)
   }
 }
-resource searchUserRole 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
-  name: guid(resourceToken, subscription().id, searchServiceResourceGroup.id, principalId, roleDefinitions.SearchUser)
+
+resource searchUserRoleExists 'Microsoft.Authorization/roleAssignments@2022-04-01' existing = {
+  name: guid(subscription().id, principalId, roleDefinitions.SearchUser)
+}
+resource searchUserRole 'Microsoft.Authorization/roleAssignments@2022-04-01' = if (empty(searchUserRoleExists.name)) {
+  name: guid(subscription().id, principalId, roleDefinitions.SearchUser)
   properties: {
     principalId: principalId
     principalType: principalType
     roleDefinitionId: resourceId('Microsoft.Authorization/roleDefinitions', roleDefinitions.SearchUser)
   }
 }
-resource searchContributorRole 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
-  name: guid(resourceToken, subscription().id, searchServiceResourceGroup.id, principalId, roleDefinitions.SearchContributor)
+
+resource searchContributorRoleExists 'Microsoft.Authorization/roleAssignments@2022-04-01' existing = {
+  name: guid(subscription().id, principalId, roleDefinitions.SearchContributor)
+}
+resource searchContributorRole 'Microsoft.Authorization/roleAssignments@2022-04-01' = if (empty(searchContributorRoleExists.name)) {
+  name: guid(subscription().id, principalId, roleDefinitions.SearchContributor)
   properties: {
     principalId: principalId
     principalType: principalType
