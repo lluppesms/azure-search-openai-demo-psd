@@ -17,7 +17,7 @@ param searchServiceName string = ''
 param searchServiceResourceGroupName string = ''
 param searchServiceResourceGroupLocation string = location
 
-param searchServiceSkuName string = 'standard'
+param searchServiceSkuName string = 'standard' // will basic work? $73/month instead of $249/month
 param searchIndexName string = 'gptkbindex'
 
 param storageAccountName string = ''
@@ -229,8 +229,6 @@ module createUserPrincipalRoles 'core/security/createUserRoles.bicep' = if (assi
   dependsOn: [ storage, openAi, formRecognizer, searchService ]
   params: {
     principalId: principalId
-    // resourceToken: resourceToken
-    // resourceGroupName: resourceGroup.name
   }
 }
 

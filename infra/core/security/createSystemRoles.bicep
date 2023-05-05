@@ -29,10 +29,7 @@ resource storageResourceGroup 'Microsoft.Resources/resourceGroups@2021-04-01' ex
   name: !empty(storageResourceGroupName) ? storageResourceGroupName : resourceGroupName
 }
 
-resource openAiUserRoleExists 'Microsoft.Authorization/roleAssignments@2022-04-01' existing = {
-  name: guid(resourceToken, subscription().id, openAiResourceGroup.id, principalId, roleDefinitions.OpenAIUser)
-}
-resource openAiUserRole 'Microsoft.Authorization/roleAssignments@2022-04-01' = if (empty(openAiUserRoleExists.name)) {
+resource openAiUserRole 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
   name: guid(resourceToken, subscription().id, openAiResourceGroup.id, principalId, roleDefinitions.OpenAIUser)
   properties: {
     principalId: principalId
@@ -41,10 +38,7 @@ resource openAiUserRole 'Microsoft.Authorization/roleAssignments@2022-04-01' = i
   }
 }
 
-resource storageUserRoleExists 'Microsoft.Authorization/roleAssignments@2022-04-01' existing = {
-  name: guid(resourceToken, subscription().id, storageResourceGroup.id, principalId, roleDefinitions.StorageUser)
-}
-resource storageUserRole 'Microsoft.Authorization/roleAssignments@2022-04-01' = if (empty(storageUserRoleExists.name)) {
+resource storageUserRole 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
   name: guid(resourceToken, subscription().id, storageResourceGroup.id, principalId, roleDefinitions.StorageUser)
   properties: {
     principalId: principalId
@@ -53,10 +47,7 @@ resource storageUserRole 'Microsoft.Authorization/roleAssignments@2022-04-01' = 
   }
 }
 
-resource searchUserRoleExists 'Microsoft.Authorization/roleAssignments@2022-04-01' existing = {
-  name: guid(resourceToken, subscription().id, searchServiceResourceGroup.id, principalId, roleDefinitions.SearchUser)
-}
-resource searchUserRole 'Microsoft.Authorization/roleAssignments@2022-04-01' = if (empty(searchUserRoleExists.name)) {
+resource searchUserRole 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
   name: guid(resourceToken, subscription().id, searchServiceResourceGroup.id, principalId, roleDefinitions.SearchUser)
   properties: {
     principalId: principalId
