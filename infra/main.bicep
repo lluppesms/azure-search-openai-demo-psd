@@ -44,13 +44,16 @@ param chatGptModelName string = 'gpt-35-turbo'
 
 @description('Id of the user or app to assign application roles')
 param principalId string = ''
+@description('Type of user or app to assign application roles to')
+param principalType string = 'User'
+
 @description('Supply a readable application name to use instead of randomly generated resource token')
 param appSuffix string = ''
 param runDateTime string = utcNow()
 
 // if you get the error, "The role assignment already exists.", then pass in false
 // These admin roles are assigned at a subscription level and can only be assigned to the admin once.
-param assignAdminPermissions string = 'true'
+param assignAdminPermissions string = 'false'
 
 var abbrs = loadJsonContent('abbreviations.json')
 // if appSuffix is supplied, use that instead of the resource token
@@ -229,6 +232,7 @@ module createUserPrincipalRoles 'core/security/createUserRoles.bicep' = if (assi
   dependsOn: [ storage, openAi, formRecognizer, searchService ]
   params: {
     principalId: principalId
+    principalType: principalType
   }
 }
 

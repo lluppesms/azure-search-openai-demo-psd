@@ -6,6 +6,12 @@
     "location": { "value": "${AZURE_LOCATION}" },
     "principalId": { "value": "${AZURE_PRINCIPAL_ID}" },
     "resourceGroupName": { "value": "${AZURE_RESOURCE_GROUP}" },
-    "backendServiceName": { "value": "${BACKEND_SERVICE_NAME}" }
+    "backendServiceName": { "value": "${BACKEND_SERVICE_NAME}" },
+    "openAiServiceName": { "value": "${AZURE_OPENAI_SERVICE}" },
+    "openAiResourceGroupName": { "value": "${AZURE_OPENAI_RESOURCE_GROUP}" },
+    "searchServiceName": { "value": "${AZURE_SEARCH_SERVICE}" },
+    "searchServiceResourceGroupName": { "value": "${AZURE_SEARCH_SERVICE_RESOURCE_GROUP}" },
+    "formRecognizerServiceName": { "value": "${AZURE_FORMRECOGNIZER_SERVICE}" },
+    "formRecognizerResourceGroupName": { "value": "${AZURE_FORMRECOGNIZER_RESOURCE_GROUP}" }
   }
 }
