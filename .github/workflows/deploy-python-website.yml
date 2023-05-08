@@ -9,24 +9,36 @@ on:
   workflow_dispatch:
     inputs:
       deployToDev:
-        required: true
-        type: string
+        required: false
         default: 'true'
+        type: choice
+        options:
+          - true
+          - false
       deployToQA:
-        required: true
-        type: string
+        required: false
         default: 'false'
+        type: choice
+        options:
+          - true
+          - false
       deployToProd:
-        required: true
-        type: string
+        required: false
         default: 'false'
+        type: choice
+        options:
+          - true
+          - false
       securityScan:
         required: false
-        type: string
         default: 'false'
+        type: choice
+        options:
+          - true
+          - false
       logLevel:
         description: 'Log level'     
-        required: true
+        required: false
         default: 'warning' 
         type: choice
         options:
