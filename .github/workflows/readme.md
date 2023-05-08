@@ -24,7 +24,7 @@ The GitHub workflows in this project require several secrets set at the reposito
 
 You need to set up the Azure Credentials secret in the GitHub Secrets at the Repository level before you do anything else.
 
-See https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/deploy-github-actions for more info.
+See [https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/deploy-github-actions](https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/deploy-github-actions) for more info.
 
 It should look something like this:
 
@@ -73,11 +73,11 @@ gh variable set RESOURCE_GROUP_Name --env dev -b rg_<yourPreferredName>_dev
 gh variable set RESOURCE_GROUP_Name --env qa -b rg_<yourPreferredName>_qa
 
 # if you use the random token, the deploy step needs it to be able to deploy to the proper resource
-gh variable set RESOURCE_TOKEN --env dev -b <hashedkey>
+gh variable set RESOURCE_TOKEN --env dev -b <hashedkeydev>
 gh variable set RESOURCE_TOKEN --env qa -b <hashedkeyqa>
 
 # if you want to use a specific suffix for your resources instead of a random token, specify this value
-gh variable set APP_SUFFIX --env dev -b xxxoaidemo
+gh variable set APP_SUFFIX --env dev -b xxxoaidev
 gh variable set APP_SUFFIX --env qa -b xxxoaiqa
 
 # if you want to use a specific name for the web application
@@ -114,11 +114,11 @@ If this deploy is run multiple times and resources have been deleted between run
 
 ### Cognitive Services Resources (i.e. OpenAI and Computer Vision)
 
-https://portal.azure.com/#view/Microsoft_Azure_ProjectOxford/CognitiveServicesHub/
+[https://portal.azure.com/#view/Microsoft_Azure_ProjectOxford/CognitiveServicesHub/](https://portal.azure.com/#view/Microsoft_Azure_ProjectOxford/CognitiveServicesHub/)
 
 ### Applied AI Services Resources (i.e. Forms Recognizer)
 
-https://portal.azure.com/#view/Microsoft_Azure_ProjectOxford/AppliedAIHub/
+[https://portal.azure.com/#view/Microsoft_Azure_ProjectOxford/AppliedAIHub/](https://portal.azure.com/#view/Microsoft_Azure_ProjectOxford/AppliedAIHub/)
 
 ---
 
