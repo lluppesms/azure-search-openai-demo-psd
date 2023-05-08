@@ -16,8 +16,6 @@ param resourceGroupName string = ''
 param searchServiceName string = ''
 param searchServiceResourceGroupName string = ''
 param searchServiceResourceGroupLocation string = location
-
-param searchServiceSkuName string = 'standard' // will basic work? $73/month instead of $249/month
 param searchIndexName string = 'gptkbindex'
 
 param storageAccountName string = ''
@@ -197,7 +195,7 @@ module searchService 'core/search/search-services.bicep' = {
       }
     }
     sku: {
-      name: searchServiceSkuName
+      name: 'standard' // semantic search requires standard or storage optimized Tier
     }
     semanticSearch: 'free'
   }

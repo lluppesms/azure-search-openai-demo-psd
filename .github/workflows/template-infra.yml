@@ -29,7 +29,6 @@ jobs:
         echo "resourceGroupName=${{ vars.RESOURCE_GROUP_NAME }}"
         echo "appSuffix=${{ vars.APP_SUFFIX }}"
         echo "BACKEND_SERVICE_NAME=${{ vars.BACKEND_SERVICE_NAME }}"
-        echo "searchServiceSkuName=${{ vars.AZURE_SEARCH_SKU }}"
         echo "principalId=${{ vars.USER_PRINCIPAL_ID }}"
         echo "assignAdminPermissions=${{ vars.ASSIGN_ADMIN_PERMISSIONS }}"
         echo "Pipeline Workspace Directory Contents:"
@@ -70,7 +69,6 @@ jobs:
           backendServiceName=${{ vars.BACKEND_SERVICE_NAME }}
           principalId=${{ vars.USER_PRINCIPAL_ID }}
           assignAdminPermissions=${{ vars.ASSIGN_ADMIN_PERMISSIONS }}
-          searchServiceSkuName=${{ vars.AZURE_SEARCH_SKU }}
 
     # openAiServiceName=${{ vars.AZURE_OPENAI_SERVICE }}
     # openAiResourceGroupName=${{ vars.AZURE_OPENAI_RESOURCE_GROUP }}
