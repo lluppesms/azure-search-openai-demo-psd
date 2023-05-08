@@ -20,7 +20,7 @@ on:
 # ------------------------------------------------------------------------------------------------------------------------
 jobs:
   deploy:
-    name: Update Search Index
+    name: Search Index
     runs-on: ubuntu-latest
     environment:
       name: ${{ inputs.envCode }}
