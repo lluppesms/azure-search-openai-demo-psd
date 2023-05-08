@@ -17,19 +17,25 @@ on:
           - info
           - warning
           - debug 
-
+      DEPLOY_DEV:
+        required: true
+        type: string
+        default: 'true'
+      DEPLOY_QA:
+        required: true
+        type: string
+        default: 'false'
+      DEPLOY_PROD:
+        required: true
+        type: string
+        default: 'false'
+      
 jobs:
-# ------------------------------------------------------------------------------------------------------------------------
-  # scan-code:
-  #   name: Scan Source Code
-  #   uses: ./.github/workflows/template-scan-code.yml
-
-# ------------------------------------------------------------------------------------------------------------------------
   infra-web-deploy:
-    name: Infra Web Deploy
+    name: IW
     uses: ./.github/workflows/template-infra-website.yml
     secrets: inherit
     with:
-      deployDev: ${{ vars.DEPLOY_DEV }}
-      deployQA: ${{ vars.DEPLOY_QA }}
-      deployProd: ${{ vars.DEPLOY_PROD }}
+      deployDev: ${{ inputs.DEPLOY_DEV }}
+      deployQA: ${{ inputs.DEPLOY_QA }}
+      deployProd: ${{ inputs.DEPLOY_PROD }}
