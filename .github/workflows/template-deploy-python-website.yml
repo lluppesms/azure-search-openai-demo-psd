@@ -15,7 +15,7 @@ on:
         required: true
         type: string
       deployDirectory:
-        required: true
+        required: false
         type: string
         default: './app/backend'
       listFilesAfterCheckout:
@@ -26,9 +26,19 @@ on:
         required: false
         type: boolean
         default: false
-  
+      securityScan:
+        required: false
+        type: string
+        default: 'false'
+    
 # ------------------------------------------------------------------------------------------------------------------------
 jobs:
+  scan-code:
+    if: inputs.securityScan == 'true'
+    name: Scan Source Code
+    uses: ./.github/workflows/template-security-scan.yml
+
+# ------------------------------------------------------------------------------------------------------------------------
   deploy:
     name: Deploy ${{ inputs.envCode }} Website
     runs-on: ubuntu-latest

@@ -12,9 +12,19 @@ on:
       envCode:
         required: true
         type: string
+      securityScan:
+        required: false
+        type: string
+        default: 'false'
 
 # ------------------------------------------------------------------------------------------------------------------------
 jobs:
+  scan-code:
+    name: Scan Source Code
+    if: inputs.securityScan == 'true'
+    uses: ./.github/workflows/template-security-scan.yml
+
+# ------------------------------------------------------------------------------------------------------------------------
   deploy:
     name: Create ${{ inputs.envCode }} Infra
     runs-on: ubuntu-latest

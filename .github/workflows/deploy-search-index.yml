@@ -4,10 +4,22 @@
 # You need to set up secrets in the GitHub Secrets Repository before running these workflows.
 #   See readme.md for details
 # ------------------------------------------------------------------------------------------------------------------------
-name: deploy.search.index
+name: deploy.search.index.only
 on:
   workflow_dispatch:
     inputs:
+      deployToDev:
+        required: true
+        type: string
+        default: 'true'
+      deployToQA:
+        required: true
+        type: string
+        default: 'false'
+      deployToProd:
+        required: true
+        type: string
+        default: 'false'
       logLevel:
         description: 'Log level'     
         required: true
@@ -21,9 +33,28 @@ on:
 jobs:
 # ------------------------------------------------------------------------------------------------------------------------
   update-search-dev:
-    name: Update Search Index
+    if: inputs.deployToDev == 'true'
+    name: DEV Search Index
     uses: ./.github/workflows/template-update-search.yml
     secrets: inherit
     with:
       envCode: 'dev'
+
+# ------------------------------------------------------------------------------------------------------------------------
+  update-search-qa:
+    if: inputs.deployToQA == 'true'
+    name: QA Search Index
+    uses: ./.github/workflows/template-update-search.yml
+    secrets: inherit
+    with:
+      envCode: 'qa'
+
+# ------------------------------------------------------------------------------------------------------------------------
+  update-search-prod:
+    if: inputs.deployToProd == 'true'
+    name: PROD Search Index
+    uses: ./.github/workflows/template-update-search.yml
+    secrets: inherit
+    with:
+      envCode: 'prod'
     

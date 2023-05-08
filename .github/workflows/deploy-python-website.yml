@@ -4,10 +4,26 @@
 # You need to set up secrets in the GitHub Secrets Repository before running these workflows.
 #   See readme.md for details
 # ------------------------------------------------------------------------------------------------------------------------
-name: deploy.website
+name: deploy.website.only
 on:
   workflow_dispatch:
     inputs:
+      deployToDev:
+        required: true
+        type: string
+        default: 'true'
+      deployToQA:
+        required: true
+        type: string
+        default: 'false'
+      deployToProd:
+        required: true
+        type: string
+        default: 'false'
+      securityScan:
+        required: false
+        type: string
+        default: 'false'
       logLevel:
         description: 'Log level'     
         required: true
@@ -17,22 +33,61 @@ on:
           - info
           - warning
           - debug 
-
+  
 jobs:
 # ------------------------------------------------------------------------------------------------------------------------
   deploy-dev:
-    name: Deploy Website
+    if: inputs.deployToDev == 'true'
+    name: Deploy DEV Website
     uses: ./.github/workflows/template-deploy-python-website.yml
     secrets: inherit
     with:
       envCode: 'dev'
-      deployDirectory: './app/backend' 
+      securityScan: ${{ inputs.securityScan }}
       
   update-search-dev:
-    name: Update Search Index
+    if: inputs.deployToDev == 'true'
     needs: deploy-dev
+    name: DEV Search Index
     uses: ./.github/workflows/template-update-search.yml
     secrets: inherit
     with:
       envCode: 'dev'
-    
+ 
+# ------------------------------------------------------------------------------------------------------------------------
+  deploy-qa:
+    if: inputs.deployToQA == 'true'
+    name: QA Web Deploy
+    uses: ./.github/workflows/template-deploy-python-website.yml
+    secrets: inherit
+    with:
+      envCode: 'qa'
+      securityScan: ${{ inputs.securityScan }}
+      
+  update-search-qa:
+    if: inputs.deployToQA == 'true'
+    needs: deploy-qa
+    name: QA Search Index
+    uses: ./.github/workflows/template-update-search.yml
+    secrets: inherit
+    with:
+      envCode: 'qa'
+
+# ------------------------------------------------------------------------------------------------------------------------
+  deploy-prod:
+    if: inputs.deployToProd == 'true'
+    name: PROD Web Deploy
+    uses: ./.github/workflows/template-deploy-python-website.yml
+    secrets: inherit
+    with:
+      envCode: 'prod'
+      securityScan: ${{ inputs.securityScan }}
+      
+  update-search-prod:
+    if: inputs.deployToProd == 'true'
+    needs: deploy-prod
+    name: PROD Search Index
+    uses: ./.github/workflows/template-update-search.yml
+    secrets: inherit
+    with:
+      envCode: 'prod'
