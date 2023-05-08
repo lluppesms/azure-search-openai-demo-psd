@@ -4,8 +4,8 @@
 # You need to set up secrets in the GitHub Secrets Repository before running these workflows.
 #   See readme.md for details
 # ------------------------------------------------------------------------------------------------------------------------
-name: template.update.search
-run-name: Update Search Index
+name: template.deploy.search
+run-name: Deploy Search Index
 on:
   workflow_call:
     inputs:
@@ -20,7 +20,7 @@ on:
 # ------------------------------------------------------------------------------------------------------------------------
 jobs:
   deploy:
-    name: Search Index
+    name: Update ${{ inputs.envCode }} Search Index
     runs-on: ubuntu-latest
     environment:
       name: ${{ inputs.envCode }}

@@ -32,7 +32,7 @@ on:
       
 jobs:
   infra-web-deploy:
-    name: IW
+    name: Infra Web
     uses: ./.github/workflows/template-infra-website.yml
     secrets: inherit
     with:

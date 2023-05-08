@@ -16,7 +16,7 @@ on:
 # ------------------------------------------------------------------------------------------------------------------------
 jobs:
   deploy:
-    name: Infra
+    name: Create ${{ inputs.envCode }} Infra
     runs-on: ubuntu-latest
     environment:
       name: ${{ inputs.envCode }}

@@ -29,7 +29,7 @@ jobs:
 
 # ------------------------------------------------------------------------------------------------------------------------
   infra-dev:
-    name: DEV I
+    name: DEV Infra
     uses: ./.github/workflows/template-infra.yml
     if: inputs.deployDev == 'true'
     secrets: inherit
@@ -37,7 +37,7 @@ jobs:
       envCode: 'dev'
 
   deploy-dev:
-    name: DEV D
+    name: DEV Web Deploy
     needs: infra-dev
     uses: ./.github/workflows/template-deploy-python-website.yml
     if: inputs.deployDev == 'true'
@@ -47,7 +47,7 @@ jobs:
       deployDirectory: './app/backend' 
       
   update-search-dev:
-    name: DEV S
+    name: DEV Search Index
     needs: deploy-dev
     uses: ./.github/workflows/template-update-search.yml
     if: inputs.deployDev == 'true'
@@ -57,7 +57,7 @@ jobs:
 
   # ------------------------------------------------------------------------------------------------------------------------
   infra-qa:
-    name: QA I
+    name: QA Infra
     uses: ./.github/workflows/template-infra.yml
     if: inputs.deployQA == 'true'
     secrets: inherit
@@ -65,7 +65,7 @@ jobs:
       envCode: 'qa'
 
   deploy-qa:
-    name: QA D
+    name: QA Web Deploy
     needs: infra-qa
     if: inputs.deployQA == 'true'
     uses: ./.github/workflows/template-deploy-python-website.yml
@@ -75,7 +75,7 @@ jobs:
       deployDirectory: './app/backend' 
       
   update-search-qa:
-    name: QA S
+    name: QA Search Index
     needs: deploy-qa
     if: inputs.deployQA == 'true'
     uses: ./.github/workflows/template-update-search.yml
@@ -86,7 +86,7 @@ jobs:
 
   # ------------------------------------------------------------------------------------------------------------------------
   infra-prod:
-    name: PROD I
+    name: PROD Infra
     uses: ./.github/workflows/template-infra.yml
     if: inputs.deployProd == 'true'
     secrets: inherit
@@ -94,7 +94,7 @@ jobs:
       envCode: 'prod'
 
   deploy-prod:
-    name: PROD D
+    name: PROD Web Deploy
     needs: infra-prod
     if: inputs.deployProd == 'true'
     uses: ./.github/workflows/template-deploy-python-website.yml
@@ -104,7 +104,7 @@ jobs:
       deployDirectory: './app/backend' 
       
   update-search-prod:
-    name: PROD S
+    name: PROD Search Index
     needs: deploy-prod
     if: inputs.deployProd == 'true'
     uses: ./.github/workflows/template-update-search.yml
