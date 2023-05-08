@@ -59,7 +59,7 @@ jobs:
         run: |
           echo "BACKEND_SERVICE_NAME=${{ vars.BACKEND_SERVICE_NAME }}"
           echo "AZURE_BACKEND_SERVICE=${{ env.AZURE_BACKEND_SERVICE }}"
-          if [[ '${{ vars.BACKEND_SERVICE_NAME }}' == 'x' ]]; then readonly backendService=${{ env.AZURE_BACKEND_SERVICE }}; else readonly backendService=${{ vars.BACKEND_SERVICE_NAME }}; fi
+          if [[ '${{ vars.BACKEND_SERVICE_NAME }}' == '' ]]; then readonly backendService=${{ env.AZURE_BACKEND_SERVICE }}; else readonly backendService=${{ vars.BACKEND_SERVICE_NAME }}; fi
           echo "new backendService=$backendService"
           echo "backendService=$backendService" >> $GITHUB_OUTPUT
 

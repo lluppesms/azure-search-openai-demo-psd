@@ -25,55 +25,11 @@ jobs:
   #   uses: ./.github/workflows/template-scan-code.yml
 
 # ------------------------------------------------------------------------------------------------------------------------
-  infra-dev:
-    name: DEV Infra
-    uses: ./.github/workflows/template-infra.yml
+  infra-web-deploy:
+    name: Infra Web Deploy
+    uses: ./.github/workflows/template-infra-website.yml
     secrets: inherit
     with:
-      envCode: 'dev'
-
-  deploy-dev:
-    name: DEV Deploy
-    needs: infra-dev
-    uses: ./.github/workflows/template-deploy-python-website.yml
-    secrets: inherit
-    with:
-      envCode: 'dev'
-      deployDirectory: './app/backend' 
-      
-  update-search-dev:
-    name: DEV Index
-    needs: deploy-dev
-    uses: ./.github/workflows/template-update-search.yml
-    secrets: inherit
-    with:
-      envCode: 'dev'
-
-  # ------------------------------------------------------------------------------------------------------------------------
-  infra-qa:
-    name: QA Infra
-    uses: ./.github/workflows/template-infra.yml
-    if: vars.DEPLOY_QA == 'true'
-    secrets: inherit
-    with:
-      envCode: 'qa'
-
-  deploy-qa:
-    name: QA Deploy
-    needs: infra-qa
-    if: vars.DEPLOY_QA == 'true'
-    uses: ./.github/workflows/template-deploy-python-website.yml
-    secrets: inherit
-    with:
-      envCode: 'qa'
-      deployDirectory: './app/backend' 
-      
-  update-search-qa:
-    name: QA Index
-    needs: deploy-qa
-    if: vars.DEPLOY_QA == 'true'
-    uses: ./.github/workflows/template-update-search.yml
-    secrets: inherit
-    with:
-      envCode: 'qa'
-
+      deployDev: ${{ vars.DEPLOY_DEV }}
+      deployQA: ${{ vars.DEPLOY_QA }}
+      deployProd: ${{ vars.DEPLOY_PROD }}
